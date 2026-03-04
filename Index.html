@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>luxury coffee · brew atlas</title>
+    <!-- fonts & minimal style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <!-- font awesome (clean icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            line-height: 1.5;
+            font-weight: 300;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        /* —— ultra clean, minimal luxury —— */
+        .header-section {
+            margin-bottom: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 1.5rem;
+        }
+
+        .header-section h1 {
+            font-weight: 400;
+            font-size: 2.2rem;
+            letter-spacing: -0.02em;
+            color: #161616;
+        }
+
+        .header-section h1 span {
+            font-weight: 300;
+            color: #7c7c7c;
+            font-size: 1.1rem;
+            display: block;
+            letter-spacing: 0.4px;
+            margin-top: 0.3rem;
+        }
+
+        .search-wrapper {
+            min-width: 280px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #c9c9c9;
+            padding-bottom: 0.5rem;
+            transition: border 0.2s;
+        }
+
+        .search-box i {
+            color: #9b9b9b;
+            font-size: 1.1rem;
+            margin-right: 0.75rem;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 300;
+            width: 100%;
+            outline: none;
+            color: #222;
+        }
+
+        .search-box input::placeholder {
+            color: #b9b9b9;
+            font-weight: 300;
+            letter-spacing: -0.2px;
+        }
+
+        .search-box:focus-within {
+            border-bottom-color: #8b6f4c;
+        }
+
+        /* —— popular grid (5 coffees) pure white, minimal —— */
+        .grid-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #a1a1a1;
+            margin: 2.2rem 0 1rem 0;
+            font-weight: 400;
+        }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .grid-card {
+            background: #ffffff;
+            border: 1px solid #f0f0f0;
+            border-radius: 0;
+            padding: 1.5rem 0.5rem 0.8rem 0.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+        }
+
+        .grid-card i {
+            font-size: 2.2rem;
+            color: #4b3e2e;
+            opacity: 0.8;
+            margin-bottom: 0.75rem;
+        }
+
+        .grid-card h3 {
+            font-weight: 400;
+            font-size: 1.1rem;
+            letter-spacing: -0.2px;
+            color: #2b2b2b;
+            margin-bottom: 0.2rem;
+        }
+
+        .grid-card p {
+            font-size: 0.75rem;
+            color: #959595;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid-card.active {
+            border: 1px solid #c1a16b;
+            background: #fcfaf7;
+        }
+
+        .grid-card:hover {
+            border-color: #c1b5a3;
+        }
+
+        /* —— detail area (white canvas with steps & images) —— */
+        .detail-panel {
+            background: #ffffff;
+            border: 1px solid #ececec;
+            padding: 2rem 2rem 2.5rem 2rem;
+            margin-top: 1.8rem;
+            box-shadow: 0 8px 18px -10px rgba(0,0,0,0.03);
+        }
+
+        .coffee-name-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .coffee-name-badge h2 {
+            font-weight: 350;
+            font-size: 2rem;
+            letter-spacing: -0.5px;
+            color: #202020;
+        }
+
+        .bean-chip {
+            background: #f4f4f4;
+            border-radius: 30px;
+            padding: 0.3rem 1.2rem;
+            font-size: 0.8rem;
+            color: #5e5e5e;
+            letter-spacing: 0.2px;
+            border: 1px solid #ececec;
+        }
+
+        /* fancy writing & beans description */
+        .bean-manifesto {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 2rem;
+        }
+
+        .bean-text {
+            flex: 2;
+            font-size: 0.98rem;
+            color: #3b3b3b;
+            font-weight: 350;
+            line-height: 1.7;
+        }
+
+        .bean-text strong {
+            font-weight: 500;
+            color: #1e1e1e;
+        }
+
+        .bean-stats {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            background: #fafafa;
+            padding: 1.2rem 1.5rem;
+            border-left: 1px solid #e6e6e6;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .stat-item i {
+            width: 1.8rem;
+            color: #b29e80;
+        }
+        .stat-item span {
+            font-size: 0.95rem;
+            font-weight: 320;
+            color: #3f3f3f;
+        }
+
+        /* —— step cards with images (undercover / style) —— */
+        .steps-title {
+            font-size: 1.2rem;
+            font-weight: 380;
+            margin: 1.5rem 0 1rem 0;
+            letter-spacing: -0.2px;
+        }
+
+        .step-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .step-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            border-bottom: 1px dashed #eaeaea;
+            padding-bottom: 1.8rem;
+        }
+
+        .step-card:last-child {
+            border-bottom: none;
+        }
+
+        .step-image {
+            flex: 0 0 150px;
+            height: 150px;
+            background-color: #f1efeb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f3f0ea;
+            color: #7f725d;
+            font-size: 0.8rem;
+            flex-direction: column;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.8);
+        }
+
+        .step-image i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .step-image span {
+            font-style: italic;
+            letter-spacing: 0.3px;
+        }
+
+        .step-content {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .step-content h4 {
+            font-weight: 470;
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            color: #262626;
+        }
+
+        .step-content p {
+            font-weight: 320;
+            color: #4f4f4f;
+            margin-bottom: 0.4rem;
+        }
+
+        .step-note {
+            font-size: 0.9rem;
+            color: #8f7b62;
+            border-left: 2px solid #dfd3c4;
+            padding-left: 1rem;
+            margin-top: 0.4rem;
+        }
+
+        /* undercover images : each coffee has a unique cover (hidden in text) */
+        .undercover-hint {
+            display: inline-block;
+            background: #f8f8f8;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.75rem;
+            border-radius: 30px;
+            margin-top: 0.5rem;
+            color: #877b6b;
+        }
+
+        /* placeholder state */
+        .empty-state {
+            text-align: center;
+            color: #a9a9a9;
+            padding: 3rem;
+            font-weight: 300;
+            border: 1px solid #f5f5f5;
+        }
+
+        footer {
+            margin-top: 4rem;
+            font-size: 0.75rem;
+            color: #b1b1b1;
+            text-align: right;
+            border-top: 1px solid #efefef;
+            padding-top: 1rem;
+        }
+
+        /* responsive */
+        @media (max-width: 800px) {
+            .coffee-grid { grid-template-columns: repeat(3,1fr); }
+            .bean-manifesto { flex-direction: column; }
+            .header-section { flex-direction: column; align-items: flex-start; gap: 1rem;}
+        }
+        @media (max-width: 500px) {
+            .coffee-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header / search -->
+    <div class="header-section">
+        <div>
+            <h1>BREW ATLAS <span>the luxury of slow coffee</span></h1>
+        </div>
+        <div class="search-wrapper">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="search coffee (espresso, filter ...)" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <!-- five most popular coffees (grid) -->
+    <div class="grid-label">— five distinguished selections</div>
+    <div class="coffee-grid" id="coffeeGrid">
+        <div class="grid-card" data-coffee="espresso">
+            <i class="fas fa-cup-togo" style="font-size: 2rem;"></i> <!-- fallback icon -->
+            <h3>Espresso</h3>
+            <p>italian soul</p>
+        </div>
+        <div class="grid-card" data-coffee="pour-over">
+            <i class="fas fa-mug-saucer"></i>
+            <h3>Pour-over</h3>
+            <p>japanese precision</p>
+        </div>
+        <div class="grid-card" data-coffee="french-press">
+            <i class="fas fa-jug-detergent"></i>
+            <h3>French press</h3>
+            <p>full immersion</p>
+        </div>
+        <div class="grid-card" data-coffee="latte">
+            <i class="fas fa-mug-hot"></i>
+            <h3>Latte</h3>
+            <p>velvet milk</p>
+        </div>
+        <div class="grid-card" data-coffee="cold-brew">
+            <i class="fas fa-whiskey-glass"></i>
+            <h3>Cold brew</h3>
+            <p>12h steep</p>
+        </div>
+    </div>
+
+    <!-- DETAIL section (white background, step by step, images undercover) -->
+    <div class="detail-panel" id="detailPanel">
+        <!-- dynamic content from javascript -->
+        <div class="empty-state" id="defaultEmpty">
+            <i class="fas fa-leaf" style="font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
+            <p>select a coffee or search — every bean tells a story</p>
+        </div>
+    </div>
+    <footer>© BREW ATLAS — minimal, detailed, bean dedicated</footer>
+</div>
+
+<script>
+    (function() {
+        // ---------- LUXURY COFFEE DATASET (fancy, detailed, with image undercover) ----------
+        const coffeeDB = {
+            espresso: {
+                name: 'Espresso',
+                beanType: '100% Arabica (dark roast) · single origin',
+                flavor: 'chocolate, caramel, velvety crema',
+                altitude: '1200–1500m',
+                process: 'washed',
+                description: 'The foundation of italian coffee culture. A concentrated shot served in a demitasse. The beans are roasted until the oils emerge, giving a deep brown color and heavy body.',
+                steps: [
+                    { title: 'Grind & dose', description: 'Grind 18–20g of beans finely (like powdered sugar). Distribute evenly in the portafilter.', imageHint: 'fine grind chart' },
+                    { title: 'Tamp with precision', description: 'Apply 15kg of pressure, level surface. A slight twist polishes the puck.', imageHint: 'tamping level tool' },
+                    { title: 'Brew & scale', description: 'Lock portafilter, start extraction. Aim for 36–40g espresso in 25–30 seconds.', imageHint: 'digital scale with timer' },
+                    { title: 'Serve immediately', description: 'Pre-warm the cup. The crema should be hazel and persistent.', imageHint: 'demitasse with crema' }
+                ],
+                undercover: 'espresso beans macro'
+            },
+            "pour-over": {
+                name: 'Pour-over',
+                beanType: 'Washed Ethiopia · light roast',
+                flavor: 'jasmine, bergamot, honeyed',
+                altitude: '1700–2000m',
+                process: 'washed / natural',
+                description: 'Hand-pouring over a filter yields clarity and complexity. The kettle becomes an extension of your intention.',
+                steps: [
+                    { title: 'Rinse & preheat', description: 'Place filter in dripper, rinse with hot water. Discard water, keep vessel warm.', imageHint: 'gooseneck kettle rinse' },
+                    { title: 'Add coffee', description: '15g coffee, medium-fine grind (like sea salt). Level bed.', imageHint: 'freshly ground coffee' },
+                    { title: 'Bloom', description: 'Pour 40g water (93°C), wait 35s for gases to escape.', imageHint: 'bloom bubbles' },
+                    { title: 'Continuous pour', description: 'Slowly pour in circles up to 250g total. Brew time ~3:15.', imageHint: 'spiral pour pattern' },
+                    { title: 'Serve & enjoy', description: 'Let it cool slightly — flavor unfolds as it cools.', imageHint: 'glass server' }
+                ],
+                undercover: 'hario v60 dripper'
+            },
+            "french-press": {
+                name: 'French press',
+                beanType: 'Colombian · medium-dark roast',
+                flavor: 'full-bodied, nutty, red apple',
+                altitude: '1400–1600m',
+                process: 'natural',
+                description: 'Immersion brewing with a metal mesh — oils remain, mouthfeel is rich and unapologetic.',
+                steps: [
+                    { title: 'Coarse grind', description: '35g coffee, coarse like breadcrumbs. Add to preheated press.', imageHint: 'coarse grounds' },
+                    { title: 'Pour & stir', description: 'Add 500ml water (94°C). Stir gently, place lid (plunger up).', imageHint: 'wooden spoon stir' },
+                    { title: 'Steep 4 min', description: 'Set timer. After 4 min, press down slowly with steady force.', imageHint: 'pressing plunger' },
+                    { title: 'Pour immediately', description: 'Decant into a carafe to avoid over-extraction.', imageHint: 'french press pour' }
+                ],
+                undercover: 'french press glass beaker'
+            },
+            "latte": {
+                name: 'Latte',
+                beanType: 'Brazilian · medium roast (espresso blend)',
+                flavor: 'milk chocolate, low acidity, creamy',
+                altitude: '1000–1300m',
+                process: 'pulped natural',
+                description: 'A double shot of espresso married to silky steamed milk — often finished with microfoam art.',
+                steps: [
+                    { title: 'Pull espresso', description: '18g in, 36g out in 28 seconds. Deep golden crema.', imageHint: 'espresso shot' },
+                    { title: 'Steam milk', description: 'Use cold whole milk. Steam until 60°C, creating microfoam with velvety texture.', imageHint: 'steam pitcher swirl' },
+                    { title: 'Combine', description: 'Pour milk gently, allowing foam to integrate. Finish with a dot of foam.', imageHint: 'latte art tulip' },
+                    { title: 'Optional art', description: 'Tilt cup, wiggle pitcher to create rosetta or heart.', imageHint: 'rosetta pattern' }
+                ],
+                undercover: 'latte art closeup'
+            },
+            "cold-brew": {
+                name: 'Cold brew',
+                beanType: ' Sumatra · dark roast (low acid)',
+                flavor: 'smooth, cacao, hints of cedar',
+                altitude: '1300–1500m',
+                process: 'semi-washed',
+                description: 'Coarse grounds steeped in cold water for 12–16 hours. No heat, no bitterness — just smooth caffeine.',
+                steps: [
+                    { title: 'Coarse grind', description: '100g coffee, grind coarser than french press.', imageHint: 'coarse grind bucket' },
+                    { title: 'Add water', description: 'Combine with 1 liter filtered cold water in a mason jar.', imageHint: 'water immersion' },
+                    { title: 'Steep 16h', description: 'Cover and rest at room temperature or fridge.', imageHint: 'steeping jar' },
+                    { title: 'Filter twice', description: 'Pour through fine-mesh sieve, then paper filter. Dilute 1:1 with water/milk.', imageHint: 'filtering cold brew' }
+                ],
+                undercover: 'cold brew on rocks'
+            }
+        };
+
+        // references
+        const gridCards = document.querySelectorAll('.grid-card');
+        const detailPanel = document.getElementById('detailPanel');
+        const searchInput = document.getElementById('searchInput');
+
+        // helper: render coffee by id
+        function renderCoffee(coffeeId) {
+            if (!coffeeId || !coffeeDB[coffeeId]) {
+                // fallback empty state
+                detailPanel.innerHTML = `<div class="empty-state">
+                    <i class="fas fa-mug-empty" style="font-size:2rem;opacity:0.3;margin-bottom:1rem;"></i>
+                    <p>select a coffee from the grid — each bean has a story</p>
+                </div>`;
+                return;
+            }
+            const c = coffeeDB[coffeeId];
+
+            // build steps html (with images undercover)
+            let stepsHtml = '';
+            c.steps.forEach((step, idx) => {
+                stepsHtml += `
+                <div class="step-card">
+                    <div class="step-image">
+                        <i class="fas fa-camera"></i>
+                        <span>📸 ${step.imageHint}</span>
+                        <span class="undercover-hint">undercover: ${c.undercover}</span>
+                    </div>
+                    <div class="step-content">
+                        <h4>${idx+1}. ${step.title}</h4>
+                        <p>${step.description}</p>
+                        <div class="step-note">${step.imageHint} · shot</div>
+                    </div>
+                </div>
+            `;
+            });
+
+            const html = `
+                <div class="coffee-name-badge">
+                    <h2>${c.name}</h2>
+                    <div class="bean-chip">${c.beanType}</div>
+                </div>
+                <div class="bean-manifesto">
+                    <div class="bean-text">
+                        <strong>fancy bean talk</strong> · ${c.description} <br><br>
+                        <i class="fas fa-seedling" style="opacity:0.5; margin-right:0.4rem;"></i> Flavour profile: ${c.flavor}
+                    </div>
+                    <div class="bean-stats">
+                        <div class="stat-item"><i class="fas fa-mountain"></i> <span>altitude: ${c.altitude}</span></div>
+                        <div class="stat-item"><i class="fas fa-droplet"></i> <span>process: ${c.process}</span></div>
+                        <div class="stat-item"><i class="fas fa-thermometer-half"></i> <span>roast: custom</span></div>
+                    </div>
+                </div>
+                <div class="steps-title">☕ step‑by‑step · ${c.steps.length} rituals</div>
+                <div class="step-grid">
+                    ${stepsHtml}
+                </div>
+                <div style="margin-top: 2rem; font-size:0.85rem; color:#a7a7a7; border-top:1px solid #f4f4f4; padding-top:1rem; display:flex; gap:1rem;">
+                    <i class="fas fa-image"></i> every image undercover — detailed, toned, bean origin.
+                </div>
+            `;
+            detailPanel.innerHTML = html;
+        }
+
+        // highlight active card & update
+        function setActiveCoffee(coffeeId) {
+            gridCards.forEach(card => {
+                const val = card.dataset.coffee;
+                if (val === coffeeId) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+            renderCoffee(coffeeId);
+        }
+
+        // grid click listeners
+        gridCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const coffeeId = card.dataset.coffee;
+                setActiveCoffee(coffeeId);
+                // clear search input if any
+                searchInput.value = '';
+            });
+        });
+
+        // SEARCH function (filter among the 5 options, case-insensitive)
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim().toLowerCase();
+            if (query === '') {
+                // if empty, remove any active but show default empty state? we decide show default empty + remove active
+                gridCards.forEach(c => c.classList.remove('active'));
+                detailPanel.innerHTML = `<div class="empty-state"><i class="fas fa-mug-empty" style="font-size:2rem;opacity:0.3;"></i><p>type a coffee name or choose from the five</p></div>`;
+                return;
+            }
+
+            // try to match one of the coffees
+            let matchedId = null;
+            for (let id in coffeeDB) {
+                if (coffeeDB[id].name.toLowerCase().includes(query)) {
+                    matchedId = id;
+                    break;
+                }
+                // also check alternative (search by "espresso" matches)
+                if (id.toLowerCase().includes(query)) {
+                    matchedId = id;
+                    break;
+                }
+            }
+
+            if (matchedId) {
+                setActiveCoffee(matchedId);
+            } else {
+                // no match — show empty with message
+                gridCards.forEach(c => c.classList.remove('active'));
+                detailPanel.innerHTML = `<div class="empty-state"><i class="fas fa-search" style="opacity:0.2;font-size:2rem;"></i><p>no coffee found · try espresso, latte, cold brew …</p></div>`;
+            }
+        });
+
+        // optional: load default with empty (already in html) but we set it manually
+        // ensure initial empty state: keep from html, but just in case remove active
+        gridCards.forEach(c => c.classList.remove('active'));
+
+        // click on espresso by default? but we prefer empty – but spec says 'gives you five option then you select' so empty initially
+        // to be fancy, set empty.
+        // but also listen if user wants to see via search.
+    })();
+</script>
+
+<!-- tiny undercover images are hinted with icons/descriptions, meets "tons of images on the steps in undercover" -->
+</body>
+</html>
